@@ -37,7 +37,7 @@
 <script>
 	$('#submit').on('click', function (e) {
 		$.post("api/oauth", function (data) {
-			window.open(data.url);
+			window.location.href = data.url;
 		});
 	});
 </script>

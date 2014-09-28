@@ -3,8 +3,6 @@
 (function () {
   var google = require('googleapis');
   var OAuth2Client = google.auth.OAuth2;
-  var plus = google.plus('v1');
-
 
   // Client ID and client secret are available at
   // https://code.google.com/apis/console
@@ -20,6 +18,15 @@
         access_type: 'offline', // will return a refresh token
         scope: 'https://www.googleapis.com/auth/calendar.readonly'
       });
+    },
+    setCredentials: function setCredentials(code) {
+      oauth2Client.getToken(code, function(err, tokens) {
+        if (!err)
+          oauth2Client.setCredentials(tokens);
+
+        // Also save the credentials in Mongo.
+      });
     }
   };
+
 }());

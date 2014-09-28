@@ -13,11 +13,15 @@
       res.send({url: url}, 200);
     });
 
-    app.post('/oauth2callback', function (req, res) {
-      console.log(req);
+  	// Application routes ======================================================
+    app.get('/oauth2callback', function (req, res) {
+      // Callback screen.
+      Google.setCredentials(req.query.code);
+
+      // Success!
+      res.sendfile('index.html', {'root': './public/views/'});
     });
 
-  	// Application routes ======================================================
   	app.get('/*', function (req, res) {
       res.sendfile('index.html', {'root': './public/views/'});
     });

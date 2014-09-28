@@ -1,4 +1,6 @@
-never-miss-a-meeting
+Pepper Potts
 ====================
 
-Don't miss a meeting with this nifty app.
+Your virtual assistant.
+
+1. Never miss a call that is scheduled on your Google calendar!

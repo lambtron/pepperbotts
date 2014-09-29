@@ -7,7 +7,7 @@
 	<!-- META -->
 	<meta charset="utf-8">
 
-	<title>GCAL</title>
+	<title>Pepper Potts</title>
 
 	<!-- FAVICON -->
 	<link rel="shortcut icon" href="/public/img/favicon.png">
@@ -24,19 +24,22 @@
 <body>
 	<div class="container" style="width: 800px; padding-top: 140px">
 		<div class="row" style="margin: 0px;">
-			<div id="submit" class="btn btn-primary">
+			<div class="form-group col-lg-9">
+	    	<input type="text" placeholder="Email address" class="form-control" id="email" required>
+		  </div>
+			<div id="submit" class="btn btn-primary col-lg-3">
 				Auth into Google
 			</div>
 		</div>
 		<footer class="col-xs-12 footer">
-			<a href="https://www.github.com/lambtron/YOOOAL">Github</a> | Made with <span class="glyphicon glyphicon-heart" style="color: #EE2C2C"></span> by <a href="http://www.twitter.com/andyjiang">@andyjiang</a>
+			<a href="https://www.github.com/lambtron/pepper-potts">Github</a> | Made with <span class="glyphicon glyphicon-heart" style="color: #EE2C2C"></span> by <a href="http://www.twitter.com/andyjiang">@andyjiang</a>
 		</footer>
 	</div>
 </body>
 
 <script>
 	$('#submit').on('click', function (e) {
-		$.post("api/oauth", function (data) {
+		$.post("api/oauth", { email: $("#email").val() }, function (data) {
 			window.location.href = data.url;
 		});
 	});

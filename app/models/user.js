@@ -8,10 +8,11 @@
 
   var UserSchema = new Schema({
       id: ObjectId,
-      type: String, // goals, cards, subs
       phone_number: String,
-      google_cal_secret: String,
-      google_cal_token: String
+      email: String,
+      google_access_token: String,
+      google_refresh_token: String,
+      google_expiry: Date
   });
 
   var User = mongoose.model("User", UserSchema);
@@ -19,21 +20,21 @@
   module.exports = {
     create: User,
 
-    upsertUser: function (phone_number, type, cb) {
-      // var error = function (err) {
-      //   if (err)
-      //     throw err;
+    upsertUser: function (email, google_refresh_token, google_access_token, google_expiry) {
+      var error = function(err) {
+        if (err)
+          throw err;
+      };
 
-      //   cb();
-      // };
-
-      User.update( {phone_number: phone_number}, {
+      User.update( {email: email}, {
         $set: {
-          type: type
+          google_refresh_token: google_refresh_token,
+          google_access_token: google_access_token,
+          google_expiry: google_expiry
         }
       },
       {upsert: true},
-      cb);
+      error);
     }
   };
 

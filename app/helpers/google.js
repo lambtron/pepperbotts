@@ -16,17 +16,20 @@
     getUrl: function getUrl() {
       return oauth2Client.generateAuthUrl({
         access_type: 'offline', // will return a refresh token
-        scope: 'https://www.googleapis.com/auth/calendar.readonly'
+        scope: 'https://www.googleapis.com/auth/calendar.readonly',
+        state: 'andyjiang@gmail.com'
       });
     },
-    setCredentials: function setCredentials(code) {
+    setCredentials: function setCredentials(code, fn) {
       oauth2Client.getToken(code, function(err, tokens) {
-        if (!err)
+        if (!err) {
           oauth2Client.setCredentials(tokens);
-
-        // Also save the credentials in Mongo.
-        console.log(tokens);
+          fn(null, tokens);
+        }
       });
+    },
+    getAccessToken: function getAccessToken(refreshToken) {
+
     }
   };
 

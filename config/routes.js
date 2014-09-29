@@ -30,9 +30,9 @@
   	// Application routes ======================================================
     app.get('/oauth2callback', function (req, res) {
       // Callback screen.
-      var email = req.body.state;
+      var email = req.query.state;
       Google.setCredentials(req.query.code, function(err, tokens) {
-        // User.upsert(this, tokens);
+        // User.upsert(this, tokens.refresh_token, tokens.access_token, tokens.expiry_date);
         console.log(this);
         console.log(tokens);
         // User.upsert();

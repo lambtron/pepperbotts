@@ -25,6 +25,7 @@
           oauth2Client.setCredentials(tokens);
 
         // Also save the credentials in Mongo.
+        console.log(tokens);
       });
     }
   };

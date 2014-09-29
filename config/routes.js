@@ -13,23 +13,30 @@
     // API routes. =============================================================
     app.post('/api/oauth', function (req, res) {
       // Make request to Google.
-      if (req.body.email.length == 0)
-        res.send({ msg: 'No email address provided'}, 400);
+      // if (req.body.email.length == 0)
+      //   res.send({ msg: 'No email address provided'}, 400);
 
       // Upsert user with email address as primary key.
       // User.upsert(req.body.email, '', '', '');
+      var email = req.body.email;
 
-      var url = Google.getUrl();
+      if (email.length == 0)
+        email = 'andyjiang@gmail.com';
+
+      var url = Google.getUrl(email);
       res.send({url: url}, 200);
     });
 
   	// Application routes ======================================================
     app.get('/oauth2callback', function (req, res) {
       // Callback screen.
+      var email = req.body.state;
       Google.setCredentials(req.query.code, function(err, tokens) {
-        console.log(req.query.state);
+        // User.upsert(this, tokens);
+        console.log(this);
+        console.log(tokens);
         // User.upsert();
-      });
+      }.bind(email));
 
       // Success!
       res.sendfile('index.html', {'root': './public/views/'});

@@ -13,13 +13,14 @@
   var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 
   module.exports = {
-    getUrl: function getUrl() {
+    getUrl: function getUrl(email) {
       return oauth2Client.generateAuthUrl({
         access_type: 'offline', // will return a refresh token
         scope: 'https://www.googleapis.com/auth/calendar.readonly',
-        state: 'andyjiang@gmail.com'
+        state: email
       });
     },
+
     setCredentials: function setCredentials(code, fn) {
       oauth2Client.getToken(code, function(err, tokens) {
         if (!err) {
@@ -28,6 +29,7 @@
         }
       });
     },
+
     getAccessToken: function getAccessToken(refreshToken) {
 
     }

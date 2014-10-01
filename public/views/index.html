@@ -42,6 +42,11 @@
 				Connect your Google Calendar
 			</div>
 		</div>
+		<div class="row col-lg-12">
+			<div class="alert alert-danger hide" role="alert" id="warning">
+				Uh-oh! This doesn't seem to be a valid email address.
+			</div>
+		</div>
 		<footer class="col-xs-12 footer">
 			<a href="https://www.github.com/lambtron/pepper-potts">Github</a> | Made with <span class="glyphicon glyphicon-heart" style="color: #EE2C2C"></span> by <a href="http://www.twitter.com/andyjiang">@andyjiang</a>
 		</footer>
@@ -50,9 +55,28 @@
 
 <script>
 	$('#submit').on('click', function (e) {
-		$.post("api/oauth", { email: $("#email").val() }, function (data) {
-			window.location.href = data.url;
-		});
+		var email = $('#email').val();
+		if (window.validateEmail(email)) {
+			if ($('#warning').hasClass('hide'))
+				$('#warning').addClass('hide');
+			$.post("api/oauth", { email: email }, function (data) {
+				window.location.href = data.url;
+			});
+		} else {
+			$('#warning').removeClass('hide');
+		}
 	});
+
+	window.validateEmail = function validateEmail(email) {
+	  var atpos = email.indexOf("@");
+	  // Create a variable to return the numerical value of .
+	  // within the variable
+	  var dotpos = email.lastIndexOf(".");
+	  // Compare the numerical values
+  	if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= email.length) {
+	    return false;
+    }
+    return true;
+  }
 </script>
 </html>

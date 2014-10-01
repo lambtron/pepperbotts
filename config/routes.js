@@ -27,10 +27,14 @@
       // Callback screen.
       var email = req.query.state;
       Google.setCredentials(req.query.code, function(err, tokens) {
-        console.log(tokens);
-        // User.upsert(this, tokens.refresh_token, tokens.access_token, tokens.expiry_date);
-
-        // What happens if there is no refresh token?
+        // Make sure all parameters exist.
+        if (this.length > 0) {
+          tokens.refresh_token = tokens.refresh_token || '';
+          tokens.access_token = tokens.access_token || '';
+          tokens.expiry_date = tokens.expiry_date || '';
+          User.upsert(this, tokens.refresh_token, tokens.access_token,
+            tokens.expiry_date);
+        }
       }.bind(email));
 
       // Success!

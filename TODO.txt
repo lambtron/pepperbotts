@@ -1,0 +1,3 @@
+- add email form validation on client-side
+- getEvents
+- makeCalls

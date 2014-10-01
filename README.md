@@ -1,4 +1,4 @@
-Pepper Potts
+Pepper Botts
 ====================
 
 Your virtual assistant.

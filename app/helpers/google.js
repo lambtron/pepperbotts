@@ -24,6 +24,7 @@
     setCredentials: function setCredentials(code, fn) {
       oauth2Client.getToken(code, function(err, tokens) {
         if (!err) {
+          console.log(tokens);
           oauth2Client.setCredentials(tokens);
           fn(null, tokens);
         }

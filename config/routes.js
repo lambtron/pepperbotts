@@ -27,7 +27,6 @@
       // Callback screen.
       var email = req.query.state;
       Google.setCredentials(req.query.code, function(err, tokens) {
-        console.log(this);
         console.log(tokens);
         // User.upsert(this, tokens.refresh_token, tokens.access_token, tokens.expiry_date);
 

@@ -9,8 +9,8 @@
   var EventSchema = new Schema({
       id: ObjectId,
       phone_numbers: Array,
-      email: String,
-      time: Date
+      calendarId: String,
+      datetime: Date
   });
 
   var Event = mongoose.model("Event", EventSchema);
@@ -18,13 +18,13 @@
   module.exports = {
     create: Event,
 
-    upsertEvent: function (time, phone_numbers) {
+    upsertEvent: function (calendarId, datetime, phone_numbers) {
       var error = function(err) {
         if (err)
           throw err;
       };
 
-      Event.update( {time: time, email: email}, {
+      Event.update( {calendarId: calendarId, datetime: datetime}, {
         $set: {
           phone_numbers: phone_numbers
         }

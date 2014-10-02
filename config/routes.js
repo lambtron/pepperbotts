@@ -14,10 +14,7 @@
     app.post('/api/oauth', function (req, res) {
       var email = req.body.email;
 
-      // Debugging.
-      if (email.length == 0)
-        email = 'andyjiang@gmail.com';
-
+      // Pass email to Google to retrieve redirect URL with email as state.
       var url = Google.getUrl(email);
       res.send({url: url}, 200);
     });
@@ -26,7 +23,7 @@
     app.get('/oauth2callback', function (req, res) {
       // Callback screen.
       var email = req.query.state;
-      Google.setCredentials(req.query.code, function(err, tokens) {
+      Google.setCredentialsFromCode(req.query.code, function(err, tokens) {
         // Make sure all parameters exist.
         if (this.length > 0) {
           tokens.refresh_token = tokens.refresh_token || '';

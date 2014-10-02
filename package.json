@@ -19,6 +19,7 @@
     "mongoose": "latest",
     "request": "latest",
     "twilio": "latest",
-    "underscore": "latest"
+    "underscore": "latest",
+    "moment": "latest"
   }
 }

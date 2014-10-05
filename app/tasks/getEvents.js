@@ -2,15 +2,15 @@
 // events within the next 24 hrs from their calendars.
 
 // Declare environment variables.
-require('./config/config');
+require('../../config/config');
 
 // Connect to db.
-require('./app/lib/db_connect');
+require('../lib/db_connect');
+var mongoose = require('mongoose');
 
 // Import helpers.
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
-var Event = mongoose.model('Event');
+var User = require('../models/user');
+var Event = require('../models/event');
 var Google = require('../helpers/google');
 
 User.create.find({}).exec(function(err, data) {
@@ -37,10 +37,14 @@ User.create.find({}).exec(function(err, data) {
       Google.getEventsFromCalendar(token, 24, function(err, data) {
         if (!err && data && data.length > 0) {
           // iterate through data and put it all into Event mongo.
-          data.forEach(function(ev) {
-            Event.upsertEvent(user.email, ev.startTime, ev.attendees,
+          for (var i = 0; i < data.length; i ++) {
+            var ev = data[i];
+            Event.upsert(user.email, ev.startTime, ev.attendees,
               user.twilio_number);
-          });
+
+            if (i == data.length - 1)
+              mongoose.connection.close();
+          }
         }
       }.bind(user));
     }.bind(user));

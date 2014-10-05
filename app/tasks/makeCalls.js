@@ -2,14 +2,14 @@
 // is right.
 
 // Declare environment variables.
-require('./config/config');
+require('../../config/config');
 
 // Connect to db.
-require('./app/lib/db_connect');
+require('../lib/db_connect');
+var mongoose = require('mongoose');
 
 // Import helpers.
-var mongoose = require('mongoose');
-var Event = mongoose.model('Event');
+var Event = require('../models/event');
 var Google = require('../helpers/google');
 var Twilio = require('../helpers/twilio');
 var moment = require('moment');
@@ -28,11 +28,15 @@ Event.create.find(
   }
 )
 .exec(function(err, data) {
-  data.forEach(function(ev) {
+  var now = new moment();
+  for (var i = 0; i < data.length; i++) {
+    var ev = data[i];
+    var meeting = moment(ev.startsAt);
     // If the time of the event is passed now.
-    var now = new moment();
-    var meeting = moment(ev.datetime);
-    if (now.isAfter(meeting, 'minute') || now.isSame(meeting, 'minute')
+    if (now.isAfter(meeting, 'minute') || now.isSame(meeting, 'minute'))
       Twilio.startConference(ev.calendarId, ev.twilio_number, ev.phone_numbers);
-  });
+
+    if (i == data.length - 1)
+      mongoose.connection.close();
+  }
 });

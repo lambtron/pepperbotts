@@ -10,7 +10,7 @@
       id: ObjectId,
       phone_numbers: Array,
       calendarId: String,
-      startsAt: Date
+      startsAt: Date,
       twilio_number: String
   });
 

@@ -18,6 +18,7 @@
     getUrl: function getUrl(email) {
       return oauth2Client.generateAuthUrl({
         access_type: 'offline', // will return a refresh token
+        approval_prompt: 'force', // get the refresh token.
         scope: 'https://www.googleapis.com/auth/calendar.readonly',
         state: email
       });

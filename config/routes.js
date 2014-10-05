@@ -6,7 +6,7 @@
   // Import helpers ============================================================
   var Google = require('../app/helpers/google');
   var mongoose = require('mongoose');
-  var User = mongoose.model('User');
+  var User = require('../app/models/user');
   var Twilio = require('../app/helpers/twilio');
 
   // REMOVE AT SCALE. ONLY FOR DEMO PURPOSES.

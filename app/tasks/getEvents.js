@@ -45,6 +45,8 @@ User.create.find({}).exec(function(err, data) {
             if (i == data.length - 1)
               mongoose.connection.close();
           }
+        } else {
+          mongoose.connection.close();
         }
       }.bind(user));
     }.bind(user));

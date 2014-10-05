@@ -39,4 +39,7 @@ Event.create.find(
     if (i == data.length - 1)
       mongoose.connection.close();
   }
+
+  if (data.length == 0)
+    mongoose.connection.close();
 });

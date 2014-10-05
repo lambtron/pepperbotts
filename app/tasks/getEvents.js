@@ -39,7 +39,7 @@ User.create.find({}).exec(function(err, data) {
           // iterate through data and put it all into Event mongo.
           for (var i = 0; i < data.length; i ++) {
             var ev = data[i];
-            Event.upsert(user.email, ev.startTime, ev.attendees,
+            Event.upsertEvent(user.email, ev.startTime, ev.attendees,
               user.twilio_number);
 
             if (i == data.length - 1)

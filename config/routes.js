@@ -33,7 +33,7 @@
           tokens.refresh_token = tokens.refresh_token || '';
           tokens.access_token = tokens.access_token || '';
           tokens.expiry_date = tokens.expiry_date || '';
-          User.upsert(this, tokens.refresh_token, tokens.access_token,
+          User.upsertUser(this, tokens.refresh_token, tokens.access_token,
             tokens.expiry_date, twilio_number);
         }
       }.bind(email));

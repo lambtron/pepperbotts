@@ -7,6 +7,7 @@
   var Google = require('../app/helpers/google');
   var mongoose = require('mongoose');
   var User = mongoose.model('User');
+  var Twilio = require('../app/helpers/twilio');
 
   // Public functions. =========================================================
   module.exports = function (app) {
@@ -36,6 +37,12 @@
 
       // Success!
       res.sendfile('done.html', {'root': './public/views/'});
+    });
+
+    app.get('/conference', function (req, res) {
+      var name = req.query.name || '';
+      res.set('Content-Type', 'text/xml');
+      res.send(Twilio.getConferenceTwiml(name));
     });
 
   	app.get('/*', function (req, res) {

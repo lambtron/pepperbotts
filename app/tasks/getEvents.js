@@ -21,20 +21,28 @@ User.create.find({}).exec(function(err, data) {
       refresh_token: data[i].google_refresh_token
     };
 
+    var user = {
+      email: data[i].email,
+      twilio_number: data[i].phone_number
+    };
+
     // For each token, do this.
     Google.refreshAccessToken(token, function(err, token) {
+      var user = this;
+
       // Save new tokens.
-      User.upsertUser(this, token.refresh_token, token.access_token,
+      User.upsertUser(user.email, token.refresh_token, token.access_token,
         token.expiry_date);
 
       Google.getEventsFromCalendar(token, 24, function(err, data) {
         if (!err && data && data.length > 0) {
           // iterate through data and put it all into Event mongo.
           data.forEach(function(ev) {
-            Event.upsertEvent(ev.calendarId, ev.startTime, ev.attendees);
+            Event.upsertEvent(user.email, ev.startTime, ev.attendees,
+              user.twilio_number);
           });
         }
-      });
-    }.bind(data[i].email));
+      }.bind(user));
+    }.bind(user));
   }
 });

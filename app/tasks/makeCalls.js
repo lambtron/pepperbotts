@@ -9,10 +9,30 @@ require('./app/lib/db_connect');
 
 // Import helpers.
 var mongoose = require('mongoose');
-var User = mongoose.model('User');
 var Event = mongoose.model('Event');
 var Google = require('../helpers/google');
-
-// Get all events in database that is less than an hour out.
+var Twilio = require('../helpers/twilio');
+var moment = require('moment');
 
 // Initiate outbound calls to each of them.
+var now = new Date(moment());
+var later = new Date(moment().add(1, 'h')); // 1 hr into the future.
+
+Event.create.find(
+  {
+    "startsAt" :
+      {
+        "$gte": now,
+        "$lte": later
+      }
+  }
+)
+.exec(function(err, data) {
+  data.forEach(function(ev) {
+    // If the time of the event is passed now.
+    var now = new moment();
+    var meeting = moment(ev.datetime);
+    if (now.isAfter(meeting, 'minute') || now.isSame(meeting, 'minute')
+      Twilio.startConference(ev.calendarId, ev.twilio_number, ev.phone_numbers);
+  });
+});

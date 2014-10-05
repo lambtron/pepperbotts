@@ -9,6 +9,9 @@
   var User = mongoose.model('User');
   var Twilio = require('../app/helpers/twilio');
 
+  // REMOVE AT SCALE. ONLY FOR DEMO PURPOSES.
+  var twilio_number = '+12405650664';
+
   // Public functions. =========================================================
   module.exports = function (app) {
     // API routes. =============================================================
@@ -31,7 +34,7 @@
           tokens.access_token = tokens.access_token || '';
           tokens.expiry_date = tokens.expiry_date || '';
           User.upsert(this, tokens.refresh_token, tokens.access_token,
-            tokens.expiry_date);
+            tokens.expiry_date, twilio_number);
         }
       }.bind(email));
 
@@ -49,5 +52,4 @@
       res.sendfile('index.html', {'root': './public/views/'});
     });
   };
-
 }());

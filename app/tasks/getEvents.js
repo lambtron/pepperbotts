@@ -40,7 +40,7 @@ User.create.find({}).exec(function(err, data) {
           for (var i = 0; i < data.length; i ++) {
             var ev = data[i];
             Event.upsertEvent(user.email, ev.startTime, ev.attendees,
-              user.twilio_number);
+              user.phone_number);
 
             if (i == data.length - 1)
               mongoose.connection.close();

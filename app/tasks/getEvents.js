@@ -14,6 +14,7 @@ var Event = require('../models/event');
 var Google = require('../helpers/google');
 
 User.create.find({}).exec(function(err, data) {
+  console.log(data);
   // Go through each user.
   for (var i = 0; i < data.length; i ++) {
     var token = {
@@ -29,7 +30,8 @@ User.create.find({}).exec(function(err, data) {
     // For each token, do this.
     Google.refreshAccessToken(token, function(err, token) {
       var user = this;
-
+      console.log('32');
+      console.log(user);
       // Save new tokens.
       User.upsertUser(user.email, token.refresh_token, token.access_token,
         token.expiry_date);
@@ -39,8 +41,10 @@ User.create.find({}).exec(function(err, data) {
           // iterate through data and put it all into Event mongo.
           for (var i = 0; i < data.length; i ++) {
             var ev = data[i];
+            console.log('43');
+            console.log(user);
             Event.upsertEvent(user.email, ev.startTime, ev.attendees,
-              user.phone_number);
+              user.twilio_number);
 
             if (i == data.length - 1)
               mongoose.connection.close();

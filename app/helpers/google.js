@@ -87,9 +87,11 @@
         console.log(err);
         console.log(tokens);
         if (!err) {
+          console.log('woot');
           fn(null, tokens);   // these are the new tokens.
-        }
-        fn(err, null);    // error.
+        } else {
+          fn(err, null);    // error.
+        };
       });
     }
   };

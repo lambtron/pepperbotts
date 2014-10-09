@@ -24,7 +24,8 @@ User.create.find({}).exec(function(err, data) {
 
     var user = {
       email: data[i].email,
-      twilio_number: data[i].twilio_number
+      twilio_number: data[i].twilio_number,
+      refresh_token: data[i].google_refresh_token
     };
 
     // For each token, do this.
@@ -33,7 +34,7 @@ User.create.find({}).exec(function(err, data) {
       console.log('32');
       console.log(user);
       // Save new tokens.
-      User.upsertUser(user.email, token.refresh_token, token.access_token,
+      User.upsertUser(user.email, user.refresh_token, token.access_token,
         token.expiry_date, user.twilio_number);
 
       Google.getEventsFromCalendar(token, 24, function(err, data) {

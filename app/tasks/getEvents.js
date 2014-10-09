@@ -31,8 +31,10 @@ User.create.find({}).exec(function(err, data) {
     // For each token, do this.
     Google.refreshAccessToken(token, function(err, token) {
       var user = this;
-      console.log('32');
-      console.log(user);
+      // console.log('32');
+      // console.log(user);
+
+      console.log(token);
       // Save new tokens.
       User.upsertUser(user.email, user.refresh_token, token.access_token,
         token.expiry_date, user.twilio_number);

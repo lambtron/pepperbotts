@@ -82,7 +82,7 @@
       console.log(oauth2Client);
       // Then see if they need to be refreshed.
       oauth2Client.refreshAccessToken(function(err, tokens) {
-        console.log(fn);
+        console.log(fn());
         if (!err) {
           fn(null, tokens);   // these are the new tokens.
         } else {

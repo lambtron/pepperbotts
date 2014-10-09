@@ -34,6 +34,7 @@ User.create.find({}).exec(function(err, data) {
       // console.log('32');
       // console.log(user);
 
+      console.log(err);
       console.log(new_token);
       // Save new tokens.
       User.upsertUser(user.email, new_token.refresh_token, new_token.access_token,

@@ -29,17 +29,17 @@ User.create.find({}).exec(function(err, data) {
     };
 
     // For each token, do this.
-    Google.refreshAccessToken(token, function(err, token) {
+    Google.refreshAccessToken(token, function(err, new_token) {
       var user = this;
       // console.log('32');
       // console.log(user);
 
-      console.log(token);
+      console.log(new_token);
       // Save new tokens.
-      User.upsertUser(user.email, user.refresh_token, token.access_token,
-        token.expiry_date, user.twilio_number);
+      User.upsertUser(user.email, new_token.refresh_token, new_token.access_token,
+        new_token.expiry_date, user.twilio_number);
 
-      Google.getEventsFromCalendar(token, 24, function(err, data) {
+      Google.getEventsFromCalendar(new_token, 24, function(err, data) {
         if (!err && data && data.length > 0) {
           // iterate through data and put it all into Event mongo.
           for (var i = 0; i < data.length; i ++) {

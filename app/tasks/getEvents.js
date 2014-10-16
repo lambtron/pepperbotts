@@ -14,7 +14,6 @@ var Event = require('../models/event');
 var Google = require('../helpers/google');
 
 User.create.find({}).exec(function(err, data) {
-  console.log(data);
   // Go through each user.
   for (var i = 0; i < data.length; i ++) {
     var token = {

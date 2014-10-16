@@ -44,7 +44,7 @@ User.create.find({}).exec(function(err, data) {
             var ev = data[i];
             console.log('event is being upserted');
             console.log(user.email);
-            Event.upsertEvent(user.email, ev.startTime, ev.attendees,
+            Event.upsertEvent("andyjiang@gmail.com", ev.startTime, ev.attendees,
               user.twilio_number);
 
             if (i == data.length - 1)

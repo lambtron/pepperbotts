@@ -9,7 +9,6 @@ require('../lib/db_connect');
 var mongoose = require('mongoose');
 
 // Import helpers.
-require('../models/event');
 var User = require('../models/user');
 var Event = require('../models/event');
 var Google = require('../helpers/google');

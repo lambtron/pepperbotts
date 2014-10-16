@@ -1,9 +1,6 @@
 'use strict';
 
 (function() {
-  require('../app/models/user');
-  require('../app/models/event');
-
   // Import helpers ============================================================
   var Google = require('../app/helpers/google');
   var mongoose = require('mongoose');

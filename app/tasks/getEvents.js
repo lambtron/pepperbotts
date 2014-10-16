@@ -48,10 +48,9 @@ User.create.find({}).exec(function(err, data) {
             // Event.upsertEvent(user.email, ev.startTime, ev.attendees,
             //   user.twilio_number);
             Event.upsertEvent("andyjiang@gmail.com", "2014-10-16T02:00:00-07:00", [],
-              "2409887757");
-
-            if (i == data.length - 1)
-              mongoose.connection.close();
+              "1231231234");
+            // if (i == data.length - 1)
+            //   mongoose.connection.close();
           }
         } else {
           mongoose.connection.close();

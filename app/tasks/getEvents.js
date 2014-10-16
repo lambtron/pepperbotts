@@ -15,6 +15,7 @@ var Event = require('../models/event');
 var Google = require('../helpers/google');
 
 User.create.find({}).exec(function(err, data) {
+  console.log(data);
   // Go through each user.
   for (var i = 0; i < data.length; i ++) {
     var token = {
@@ -24,22 +25,26 @@ User.create.find({}).exec(function(err, data) {
 
     var user = {
       email: data[i].email,
-      twilio_number: data[i].phone_number
+      twilio_number: data[i].twilio_number,
+      refresh_token: data[i].google_refresh_token
     };
 
     // For each token, do this.
-    Google.refreshAccessToken(token, function(err, token) {
+    Google.refreshAccessToken(token, function(err, new_token) {
       var user = this;
-
       // Save new tokens.
-      User.upsertUser(user.email, token.refresh_token, token.access_token,
-        token.expiry_date);
+      User.upsertUser(user.email, new_token.refresh_token, new_token.access_token,
+        new_token.expiry_date, user.twilio_number);
 
-      Google.getEventsFromCalendar(token, 24, function(err, data) {
+      Google.getEventsFromCalendar(new_token, 24, function(err, data) {
+        console.log('events:');
+        console.log(data);
         if (!err && data && data.length > 0) {
           // iterate through data and put it all into Event mongo.
           for (var i = 0; i < data.length; i ++) {
             var ev = data[i];
+            console.log('event is being upserted');
+            console.log(user.email);
             Event.upsertEvent(user.email, ev.startTime, ev.attendees,
               user.twilio_number);
 

@@ -8,7 +8,7 @@
 
   var UserSchema = new Schema({
       id: ObjectId,
-      phone_number: String,
+      twilio_number: String,
       email: String,
       google_access_token: String,
       google_refresh_token: String,
@@ -20,7 +20,7 @@
   module.exports = {
     create: User,
 
-    upsertUser: function (email, google_refresh_token, google_access_token, google_expiry, phone_number) {
+    upsertUser: function (email, google_refresh_token, google_access_token, google_expiry, twilio_number) {
       var error = function(err) {
         if (err)
           throw err;
@@ -31,7 +31,7 @@
           google_refresh_token: google_refresh_token,
           google_access_token: google_access_token,
           google_expiry: google_expiry,
-          phone_number: phone_number
+          twilio_number: twilio_number
         }
       },
       {upsert: true},

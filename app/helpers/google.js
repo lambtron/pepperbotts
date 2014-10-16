@@ -79,13 +79,13 @@
 
       // First set tokens.
       oauth2Client.setCredentials(tokens);
-
       // Then see if they need to be refreshed.
       oauth2Client.refreshAccessToken(function(err, tokens) {
         if (!err) {
           fn(null, tokens);   // these are the new tokens.
-        }
-        fn(err, null);    // error.
+        } else {
+          fn(err, null);    // error.
+        };
       });
     }
   };

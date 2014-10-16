@@ -36,24 +36,13 @@ User.create.find({}).exec(function(err, data) {
         new_token.expiry_date, user.twilio_number);
 
       Google.getEventsFromCalendar(new_token, 24, function(err, data) {
-        console.log('events:');
-        console.log(data);
         if (!err && data && data.length > 0) {
           // iterate through data and put it all into Event mongo.
           for (var i = 0; i < data.length; i ++) {
             var ev = data[i];
-            // console.log('event is being upserted');
-            // console.log(ev);
-            console.log(Event);
-            // Event.upsertEvent(user.email, ev.startTime, ev.attendees,
-            //   user.twilio_number);
-            Event.upsertEvent("andyjiang@gmail.com", "2014-10-16T02:00:00-07:00", [],
-              "1231231234");
-            // if (i == data.length - 1)
-            //   mongoose.connection.close();
+            Event.upsertEvent(user.email, ev.startTime, ev.attendees,
+              user.twilio_number);
           }
-        } else {
-          // mongoose.connection.close();
         }
       }.bind(user));
     }.bind(user));

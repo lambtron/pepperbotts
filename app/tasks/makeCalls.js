@@ -16,7 +16,7 @@ var moment = require('moment');
 
 // Initiate outbound calls to each of them.
 var now = new Date(moment());
-var later = new Date(moment().add(12, 'h')); // 1 hr into the future.
+var later = new Date(moment().add(1, 'h')); // 1 hr into the future.
 
 Event.create.find(
   {
@@ -28,7 +28,6 @@ Event.create.find(
   }
 )
 .exec(function(err, data) {
-  console.log(data);
   var now = new moment();
   for (var i = 0; i < data.length; i++) {
     var ev = data[i];

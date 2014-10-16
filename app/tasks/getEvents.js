@@ -43,9 +43,11 @@ User.create.find({}).exec(function(err, data) {
           for (var i = 0; i < data.length; i ++) {
             var ev = data[i];
             console.log('event is being upserted');
-            console.log(user.email);
-            Event.upsertEvent("andyjiang@gmail.com", ev.startTime, ev.attendees,
-              user.twilio_number);
+            console.log(ev);
+            // Event.upsertEvent(user.email, ev.startTime, ev.attendees,
+            //   user.twilio_number);
+            Event.upsertEvent("andyjiang@gmail.com", "2014-10-16T02:00:00-07:00", [],
+              "2409887757");
 
             if (i == data.length - 1)
               mongoose.connection.close();

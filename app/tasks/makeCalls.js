@@ -36,10 +36,10 @@ Event.create.find(
     if (now.isAfter(meeting, 'minute') || now.isSame(meeting, 'minute'))
       Twilio.startConference(ev.calendarId, ev.twilio_number, ev.phone_numbers);
 
-    if (i == data.length - 1)
-      mongoose.connection.close();
+    // if (i == data.length - 1)
+    //   mongoose.connection.close();
   }
 
-  if (data.length == 0)
-    mongoose.connection.close();
+  // if (data.length == 0)
+  //   mongoose.connection.close();
 });

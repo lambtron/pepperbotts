@@ -53,7 +53,7 @@ User.create.find({}).exec(function(err, data) {
             //   mongoose.connection.close();
           }
         } else {
-          mongoose.connection.close();
+          // mongoose.connection.close();
         }
       }.bind(user));
     }.bind(user));

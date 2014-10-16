@@ -11,5 +11,7 @@ var mongoose = require('mongoose');
 // Import helpers.
 var Event = require('../models/event');
 
+console.log(Event);
+
 Event.upsertEvent("andyjiang@gmail.com", "2014-10-16T02:00:00-07:00", [],
               "2409887757");

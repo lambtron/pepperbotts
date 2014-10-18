@@ -28,18 +28,18 @@ Event.create.find(
   }
 )
 .exec(function(err, data) {
-  console.log(data);
   var now = new moment();
   for (var i = 0; i < data.length; i++) {
     var ev = data[i];
     var meeting = moment(ev.startsAt);
     // If the time of the event is passed now.
-    if (now.isAfter(meeting, 'minute') || now.isSame(meeting, 'minute'))
+    if (now.isAfter(meeting, 'minute') || now.isSame(meeting, 'minute')) {
       Twilio.startConference(ev.calendarId, ev.twilio_number, ev.phone_numbers, function(err, success) {
+        // If successful, then remove it from Mongodb.
         if (!err)
-          data[i].remove();
-      });
-    // If successful, then remove it from Mongodb.
+          this.remove();
+      }.bind(data[i]));
+    }
 
     // if (i == data.length - 1)
     //   mongoose.connection.close();

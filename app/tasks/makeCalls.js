@@ -15,7 +15,7 @@ var Twilio = require('../helpers/twilio');
 var moment = require('moment');
 
 // Initiate outbound calls to each of them.
-var now = new Date(moment());
+var now = new Date(moment().subtract(1, 'h'));
 var later = new Date(moment().add(1, 'h')); // 1 hr into the future.
 
 Event.create.find(

@@ -28,6 +28,7 @@ Event.create.find(
   }
 )
 .exec(function(err, data) {
+  console.log(data);
   var now = new moment();
   for (var i = 0; i < data.length; i++) {
     var ev = data[i];

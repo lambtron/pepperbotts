@@ -21,7 +21,7 @@
         }
       });
     },
-    startConference: function(name, twilio_number, phone_numbers) {
+    startConference: function(name, twilio_number, phone_numbers, fn) {
       twilio_number = standardizePhoneNumber(twilio_number);
 
       phone_numbers.forEach(function(phone_number) {
@@ -31,7 +31,7 @@
           to: phone_number,
           from: twilio_number
         }, function(err, call) {
-          console.log(err);
+          fn(err, call);
         });
       })
     },

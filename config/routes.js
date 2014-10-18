@@ -40,7 +40,7 @@
       res.sendfile('done.html', {'root': './public/views/'});
     });
 
-    app.get('/conference', function (req, res) {
+    app.post('/conference', function (req, res) {
       var name = req.query.name || '';
       res.set('Content-Type', 'text/xml');
       res.send(Twilio.getConferenceTwiml(name));

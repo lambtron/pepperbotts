@@ -35,7 +35,11 @@ Event.create.find(
     var meeting = moment(ev.startsAt);
     // If the time of the event is passed now.
     if (now.isAfter(meeting, 'minute') || now.isSame(meeting, 'minute'))
-      Twilio.startConference(ev.calendarId, ev.twilio_number, ev.phone_numbers);
+      Twilio.startConference(ev.calendarId, ev.twilio_number, ev.phone_numbers, function(err, success) {
+        if (!err)
+          data[i].remove();
+      });
+    // If successful, then remove it from Mongodb.
 
     // if (i == data.length - 1)
     //   mongoose.connection.close();

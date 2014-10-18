@@ -21,14 +21,6 @@
         }
       });
     },
-    standardizePhoneNumber: function(phone_number) {
-      // 2409887757 to +12409887757
-      var new_phone_number = phone_number + '';
-      if (new_phone_number.length == 10 || new_phone_number.substring(0,2) != '+1') {
-        new_phone_number = '+1' + new_phone_number;
-      };
-      return new_phone_number;
-    },
     startConference: function(name, twilio_number, phone_numbers) {
       twilio_number = standardizePhoneNumber(twilio_number);
 
@@ -55,4 +47,13 @@
       return twiml.toString();
     }
   };
+
+  function standardizePhoneNumber(phone_number) {
+    // 2409887757 to +12409887757
+    var new_phone_number = phone_number + '';
+    if (new_phone_number.length == 10 || new_phone_number.substring(0,2) != '+1') {
+      new_phone_number = '+1' + new_phone_number;
+    };
+    return new_phone_number;
+  }
 }());

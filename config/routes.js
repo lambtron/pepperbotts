@@ -11,9 +11,9 @@
   var twilio_number = '+12405650664';
 
   // Public functions. =========================================================
-  module.exports = function (app) {
+  module.exports = function(app) {
     // API routes. =============================================================
-    app.post('/api/oauth', function (req, res) {
+    app.post('/api/oauth', function(req, res) {
       var email = req.body.email;
 
       // Pass email to Google to retrieve redirect URL with email as state.
@@ -22,7 +22,7 @@
     });
 
   	// Application routes ======================================================
-    app.get('/oauth2callback', function (req, res) {
+    app.get('/oauth2callback', function(req, res) {
       // Callback screen.
       var email = req.query.state;
       Google.setCredentialsFromCode(req.query.code, function(err, tokens) {
@@ -40,13 +40,13 @@
       res.sendfile('done.html', {'root': './public/views/'});
     });
 
-    app.post('/conference', function (req, res) {
+    app.post('/conference', function(req, res) {
       var name = req.query.name || '';
       res.set('Content-Type', 'text/xml');
       res.send(Twilio.getConferenceTwiml(name));
     });
 
-  	app.get('/*', function (req, res) {
+  	app.get('/*', function(req, res) {
       res.sendfile('index.html', {'root': './public/views/'});
     });
   };

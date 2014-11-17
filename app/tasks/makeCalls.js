@@ -40,11 +40,5 @@ Event.create.find(
           this.remove();
       }.bind(data[i]));
     }
-
-    // if (i == data.length - 1)
-    //   mongoose.connection.close();
   }
-
-  // if (data.length == 0)
-  //   mongoose.connection.close();
 });
